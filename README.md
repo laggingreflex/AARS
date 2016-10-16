@@ -1,13 +1,17 @@
 
-# AARS: APIs, Actions, Reducers, and Sagas
+# React AARS
 
-These 4 things are common and almost identical in almost every route or component, like `/login`, `user`, `creditCard` etc.
+**A**PIs, **A**ctions, **R**educers, and **S**agas
+
+These 4 things are usually common and almost identical in almost every route or component, like `/login`, `user`, `creditCard` etc.
 
 The following encapsulates all of the boilerplate code that goes with defining these 4 components separately for every use case.
 
-## [`createComponent`](create/component.js)
+## Components
 
-    createComponent({name: 'user'})
+```js
+createComponent({name: 'user'})
+```
 
 This creates
 
@@ -18,48 +22,74 @@ This creates
 
 The state data are like
 
-    {
-        data: null || { ... },
-        // The data fetched from API (null initially or when unsuccessful)
+```js
+{
+  data: null || { ... },
+  // The data fetched from API (null initially or when unsuccessful)
 
-        requestData: { ... },
-        // The data sent to fetch API
+  requestData: { ... },
+  // The data sent to fetch API
 
-        isFetching: true/false,
-        // True on userRequest, false on userSuccess or userFailure
+  isFetching: true/false,
+  // True on userRequest, false on userSuccess or userFailure
 
-        error: null,
-        // Error message on userFailure
+  error: null,
+  // Error message on userFailure
 
-        result: null
-        // Like data, but used in crud (seen later)
-    }
-
+  result: null
+  // Like data, but used in crud (seen later)
+}
+```
 
 With this you can simply have in your `AccountView.js`:
 
-    static propTypes = {
-        user: React.PropTypes.object.isRequired
-    }
 
-    componentWillMount () {
-        this.props.user.actions.request({send: 'some data if needed'});
-    }
+```js
+static propTypes = {
+  user: React.PropTypes.object.isRequired
+}
 
-    render () {
-        const user = this.props.user.data;
-    }
+componentWillMount () {
+  this.props.user.actions.request({send: 'some data if needed'});
+}
 
+render () {
+  const user = this.props.user.data;
+}
+```
 
-## [`createCRUDComponent`](create/crud.js)
+## CRUD Components
+
+```js
+createCRUDComponent({ name: 'user' })
+```
+
 
 This is an extension of [`createComponent`](#createComponent).
 
 This creates
 
-  * 4 API routes: `/user/create`, `/user/read`, `/user/update`, `/user/remove`
-  * 12 actions, 3 actions each: `userCreateRequest`, `userCreateSuccess`, and `userCreateFailure` for all 4 corresponding CRUD operations. `userCreateRequest` calls `/user/create` and so on.
-  * 12 Reducers
+  * 4 API routes:
+    ```
+    /user/create
+    /user/read
+    /user/update
+    /user/remove
+    ```
+  * 3 actions:
+
+    - `userCreateRequest({...data})`
+    - `userCreateSuccess({...token})`
+    - `userCreateFailure({...error})`
+
+      All 3 for each of the 4 corresponding CRUD operations (so total 12).
+
+      `userCreateRequest()` calls the route `/user/create`, and so on.
+
+  * Simiarly 12 Reducers
+
+And finally
+
   * 4 Sagas
 
 
@@ -67,32 +97,40 @@ This creates
 
 `createComponent` lets you specify actions hooks such as:
 
+* `actions.success`
+
+    When `/login` is requested and server send back a token, you can do stuff with in on success.
+
+    ```js
     createComponent({
-        name: 'login',
-        actions: {
-            success (data) {
-                localStorage.setItem('token', data.token)
-            }
+      name: 'login',
+      actions: {
+        success (data) {
+          localStorage.setItem('token', data.token)
         }
+      }
     })
+    ```
 
-So when `/login` is requested and server send back a token, you can do stuff with in on success.
+* `actions.request`
 
-Similarly for every other fetch request you can set jwt authorization header token
+    Similarly you can set jwt authorization header token on request
 
+    ```js
     createCRUDComponent({
-        name: 'user',
-        actions: {
-            request (data) {
-                return {
-                    authorization: localStorage.getItem('token'),
-                    ...data
-                }
-            }
+      name: 'user',
+      actions: {
+        request (data) {
+          return {
+            authorization: localStorage.getItem('token'),
+            ...data
+          }
         }
+      }
     })
+    ```
 
-The [fetch-api](../api/rest-api-request.js) takes care of appending authorization as a header.
+The [fetch-api](../api/rest-api-request.js) takes care of appending authorization "bearer" text as a header.
 
 
 ## [AARS Components](components.js)
