@@ -1,18 +1,18 @@
 import 'babel-polyfill';
 import _ from 'lodash';
 import Immutable from 'immutable';
-import { createReducer } from 'redux-create-reducer';
-import { takeEvery } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import {createReducer} from 'redux-create-reducer';
+import {takeEvery} from 'redux-saga';
+import {call, put} from 'redux-saga/effects';
 import restApiRequest from './utils/rest-api-request';
-import { deepCamelCase } from './utils/misc';
-import { fetchActions, miscActions } from './defaults';
+import {deepCamelCase} from './utils/misc';
+import {fetchActions, miscActions} from './defaults';
 
-export default function createComponent({
+export default function createComponent ({
   apiUrl,
   name,
   initialState,
-  request: { options: requestOpts } = {},
+  request: {options: requestOpts} = {},
   actions: actionOpts,
   resource,
   wrapped
@@ -26,7 +26,7 @@ export default function createComponent({
     const dataLabel = preAction.dataLabel || 'data';
 
     return _.merge(all, {
-      [namedLabel](state, action) {
+      [namedLabel] (state, action) {
         return state.merge(_.merge({
           [dataLabel]: action[dataLabel]
         }, preAction.state));
@@ -41,12 +41,12 @@ export default function createComponent({
     const namedLabel = deepCamelCase(name, label);
 
     return _.merge(all, {
-      [label](data) {
+      [label] (data) {
         return (dispatch, state) => {
           let dataWrap;
 
           if (preAction.wrapData) {
-            dataWrap = { data };
+            dataWrap = {data};
           } else {
             dataWrap = data;
           }
@@ -65,7 +65,7 @@ export default function createComponent({
   }, {});
 
   const api = {
-    request: ({ authorization, ...data }) => {
+    request: ({authorization, ...data}) => {
       return restApiRequest(_.merge({
         apiUrl,
         authorization,
@@ -76,7 +76,7 @@ export default function createComponent({
   };
 
   const sagas = {
-    *[name]() {
+    *[name] () {
       yield* takeEvery(deepCamelCase(name, preActions.request.label), function*(dataWrap) {
         const data = dataWrap[preActions.request.dataLabel || 'data'];
 

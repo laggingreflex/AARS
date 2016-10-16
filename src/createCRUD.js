@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import Immutable from 'immutable';
-import { createReducer } from 'redux-create-reducer';
-import { takeEvery } from 'redux-saga';
-import { call, put } from 'redux-saga/effects';
+import {createReducer} from 'redux-create-reducer';
+import {takeEvery} from 'redux-saga';
+import {call, put} from 'redux-saga/effects';
 import restApiRequest from './utils/rest-api-request';
-import { deepCamelCase } from './utils/misc';
-import { fetchActions, miscActions, crudPreOperations } from './defaults';
+import {deepCamelCase} from './utils/misc';
+import {fetchActions, miscActions, crudPreOperations} from './defaults';
 
-export default function createCRUDComponent({
+export default function createCRUDComponent ({
   apiUrl,
   name,
   initialState = {},
@@ -59,7 +59,7 @@ export default function createCRUDComponent({
     };
 
     return _.merge(all, {
-      [namedOpActionLabel]: reducer });
+      [namedOpActionLabel]: reducer});
   }, {});
   const reducers = createReducer(initialStateImmutable, reducerHandlers);
 
@@ -74,7 +74,7 @@ export default function createCRUDComponent({
         let dataWrap;
 
         if (pre.action.wrapData) {
-          dataWrap = { data };
+          dataWrap = {data};
         } else {
           dataWrap = data;
         }
@@ -91,13 +91,13 @@ export default function createCRUDComponent({
     };
 
     return _.merge(all, {
-      [opActionLabel]: action });
+      [opActionLabel]: action});
   }, {});
 
   /* API */
   const api = _.reduce(preOperations, (all, preOp, opLabel) => {
     return _.merge(all, {
-      [opLabel]({ authorization, ...data }) {
+      [opLabel] ({authorization, ...data}) {
         return restApiRequest({
           apiUrl,
           authorization,
@@ -120,7 +120,7 @@ export default function createCRUDComponent({
     };
 
     return _.merge(all, {
-      *[namedOpLabel]() {
+      *[namedOpLabel] () {
         yield* takeEvery(getNamedOpActionLabel('request'), function*(dataWrap) {
           const apiRequest = api[opLabel];
           const requestData = dataWrap[preActions.request.dataLabel];
@@ -178,7 +178,7 @@ export default function createCRUDComponent({
 
   if (wrapped) {
     return {
-      [name]: component };
+      [name]: component};
   } else {
     return component;
   }

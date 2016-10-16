@@ -21,7 +21,7 @@ export const storeTokenOnSuccess = (opts) => {
     localStorage.setItem(tokenLabel(opts), modifiedData[tokenLabel(opts)]);
   };
 
-  return _.merge({ actions: { success } }, opts);
+  return _.merge({actions: {success}}, opts);
 };
 
 export const injectAuthTokenOnRequest = (opts) => {
@@ -33,13 +33,13 @@ export const injectAuthTokenOnRequest = (opts) => {
     }, modifiedData);
   };
 
-  return _.merge({}, opts, { actions: { request } });
+  return _.merge({}, opts, {actions: {request}});
 };
 
 export const preAuth = (create, opts) => {
-  return create(storeTokenOnSuccess(_.merge({ wrapped: true }, opts)));
+  return create(storeTokenOnSuccess(_.merge({wrapped: true}, opts)));
 };
 
 export const postAuth = (create, opts) => {
-  return create(injectAuthTokenOnRequest(_.merge({ wrapped: true }, opts)));
+  return create(injectAuthTokenOnRequest(_.merge({wrapped: true}, opts)));
 };

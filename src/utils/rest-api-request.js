@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { routeActions } from 'react-router-redux';
+import {routeActions} from 'react-router-redux';
 
 export const handleResponse = (response) => {
   let extractBody;
