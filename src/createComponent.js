@@ -97,7 +97,8 @@ export default function createComponent({
 
   if (wrapped) {
     return {
-      [name]: component };
+      [name]: component
+    };
   } else {
     return component;
   }
