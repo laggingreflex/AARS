@@ -7,24 +7,33 @@
     "type": "git"
   },
   "scripts": {
-    "pragmatist": "pragmatist --notifications",
-    "build": "npm run pragmatist -- build",
-    "test": "npm run pragmatist -- test",
-    "btw": "npm run pragmatist -- build test --watch"
+    "babel": "babel",
+    "mocha": "mocha",
+    "istanbul": "istanbul",
+    "nyc": "nyc",
+    "build": "npm run babel -- src -d dist",
+    "test": "npm run nyc -- mocha",
+    "tdd": "npm run mocha -- -w"
   },
   "author": "laggingreflex@gmail.com",
   "license": "MIT",
-  "devDependencies": {
-    "babel-preset-flow": "^1.0.0",
-    "babel-preset-node6": "^11.0.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "pragmatist": "^3.0.24"
-  },
   "dependencies": {
     "immutable": "^3.8.1",
     "lodash": "^4.16.4",
     "react-router-redux": "^4.0.6",
     "redux-create-reducer": "^1.1.1",
     "redux-saga": "^0.12.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-plugin-source-map-support-for-6": "^0.0.5",
+    "babel-preset-es2015-node6": "^0.3.0",
+    "babel-preset-flow": "^1.0.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "chokidar": "^1.6.1",
+    "eslint-config-canonical": "^1.8.8",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "nyc": "^8.3.1"
   }
 }

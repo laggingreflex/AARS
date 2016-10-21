@@ -1,1 +1,14 @@
-{ "presets": ["node6", "stage-0", "flow"] }
+{
+    "presets": [
+        "es2015-node6/object-rest",
+        "stage-0",
+        "flow"
+    ],
+    "env": {
+        "development": {
+            "plugins": [
+                "babel-plugin-source-map-support-for-6"
+            ]
+        }
+    }
+ }
