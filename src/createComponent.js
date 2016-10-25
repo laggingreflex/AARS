@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import _ from 'lodash';
 import Immutable from 'immutable';
 import {createReducer} from 'redux-create-reducer';
@@ -8,14 +7,18 @@ import restApiRequest from './utils/rest-api-request';
 import {deepCamelCase} from './utils/misc';
 import {fetchActions, miscActions} from './defaults';
 
+function mandatory (message) {
+  throw new Error(message || 'Required field missing');
+}
+
 export default function createComponent ({
-  apiUrl,
-  name,
-  initialState,
+  apiUrl = mandatory('Need an apiUrl'),
+  name = mandatory('Need an name'),
+  initialState = {},
   request: {options: requestOpts} = {},
-  actions: actionOpts,
+  actions: actionOpts = {} ,
   resource,
-  wrapped
+  wrapped = false
 } = {}) {
   const preActions = _.merge({}, fetchActions, miscActions);
 

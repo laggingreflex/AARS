@@ -1,3 +1,4 @@
+[![npm](https://img.shields.io/npm/v/react-aars.svg)](https://www.npmjs.com/package/react-aars)
 
 # React AARS
 
