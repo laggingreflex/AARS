@@ -1,4 +1,4 @@
-/* eslint-disable sorting/sort-object-props */
+/* eslint-disable sort-keys */
 
 export const fetchActions = {
   request: {

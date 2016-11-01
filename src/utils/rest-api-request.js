@@ -1,15 +1,20 @@
-import _ from 'lodash';
-import {routeActions} from 'react-router-redux';
-
 export const handleResponse = (response) => {
-  let extractBody;
+  let contentType, extractBody;
 
-  const contentType = response.headers.get('content-type');
+  try {
+    contentType = response.headers.get('content-type');
+  } catch (error) {
+    throw new Error('Invalid response object. ' + error.message);
+  }
 
-  if (contentType && contentType.includes('application/json')) {
-    extractBody = response.json();
-  } else {
-    extractBody = response.text();
+  try {
+    if (contentType && contentType.includes('application/json')) {
+      extractBody = response.json();
+    } else {
+      extractBody = response.text();
+    }
+  } catch (error) {
+    throw new Error('Invalid response object. ' + error.message);
   }
 
   return extractBody.then((body) => {
@@ -17,9 +22,7 @@ export const handleResponse = (response) => {
       return body;
     }
 
-    /* eslint-disable no-extra-parens */
-    const error = new Error(body.error || (response.status + ' ' + response.statusText));
-    /* eslint-enable */
+    const error = new Error( body.error || ( response.status + ' ' + ( response.statusText || '' ) ) ); // eslint-disable-line
 
     error.statusCode = response.status;
     error.httpResponse = response;
@@ -29,30 +32,26 @@ export const handleResponse = (response) => {
   });
 };
 
-export const handleBadResponse = (dispatch) => {
-  return (response) => {
-    const statusCode = _.get(response, 'response.statusCode');
-
-    if (statusCode === 401) {
-      // dispatch(AuthenticationActionCreator.loginFailure(response));
-      dispatch(routeActions.push('/login'));
-    } else if (statusCode === 404) {
-      dispatch(routeActions.push('/not-found'));
-    } else {
-      dispatch(routeActions.push('/server-error'));
-    }
-  };
-};
-
-export default ({
+export default async({
   apiUrl,
   resource,
   method = 'post',
   authorization,
-  data = {}
-}) => {
-  if (!resource) {
-    throw new Error('Need a resource for API');
+  data
+} = {}) => {
+  if (!apiUrl && !resource) {
+    throw new Error('Need an apiUrl or a resource');
+  }
+
+  let url;
+
+  if (apiUrl) {
+    url = apiUrl;
+  } else {
+    url = '';
+  }
+  if (resource) {
+    url += '/' + resource;
   }
 
   const opts = {
@@ -71,5 +70,8 @@ export default ({
     opts.body = JSON.stringify(data);
   }
 
-  return fetch(apiUrl + '/' + resource, opts).then(handleResponse);
+  const fetchResponse = await fetch(url, opts);
+  const handledResponse = handleResponse(fetchResponse);
+
+  return handledResponse;
 };

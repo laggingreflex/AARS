@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-const tokenLabel = (opts) => {
+export const tokenLabel = (opts) => {
   return opts.tokenLabel || 'token';
 };
 
-const preAction = (label, opts, data, state) => {
+export const preAction = (label, opts, data, state) => {
   const action = _.get(opts, 'actions' + label);
 
   if (_.isFunction(action)) {

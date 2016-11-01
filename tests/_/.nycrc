@@ -1,0 +1,18 @@
+{
+  "require": "babel-register",
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "src/**/*.test.js",
+    "src/**/tests/*.js"
+  ],
+  "reporter": [
+    "lcov",
+    "text"
+  ],
+  "report-dir": "tests_coverage",
+  "check-coverage": true,
+  "all": true,
+  "cache": true
+}

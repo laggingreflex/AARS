@@ -10,8 +10,8 @@
     "lcov",
     "text"
   ],
-  "moduleDirectories": [
-    "node_modules",
-    "vendor"
+  "testPathDirs": [
+    "src",
+    "tests"
   ]
 }

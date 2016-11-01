@@ -1,6 +1,5 @@
-[![npm](https://img.shields.io/npm/v/react-aars.svg)](https://www.npmjs.com/package/react-aars)
 
-# React AARS
+# React AARS [![npm](https://img.shields.io/npm/v/react-aars.svg)](https://www.npmjs.com/package/react-aars)
 
 **A**PIs, **A**ctions, **R**educers, and **S**agas
 

@@ -1,5 +1,5 @@
-export createComponent from './createComponent';
-export createCRUD from './createCRUD';
+export createComponent from './create-component';
+export createCRUD from './create-crud';
 
 export groupComponents from './group-components';
 export {groupActions} from './group-components';

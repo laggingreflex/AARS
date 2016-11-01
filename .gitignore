@@ -1,6 +1,6 @@
 
-.nyc_output
 .vscode
-tests-coverage
+.nyc_output
+tests_coverage
 dist
 node_modules
