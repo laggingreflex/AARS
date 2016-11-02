@@ -55,7 +55,6 @@
     "karma-commonjs": "^1.0.0",
     "karma-jsdom-launcher": "^4.0.0",
     "karma-jasmine": "^1.0.2",
-    "jasmine": "^2.5.2",
-    "jasmine-core": "^2.5.2"
+    "jasmine": "^2.5.2"
   }
 }

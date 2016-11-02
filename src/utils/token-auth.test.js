@@ -1,11 +1,11 @@
-import {
-  injectAuthTokenOnRequest
-} from './token-auth';
+// import {
+//   injectAuthTokenOnRequest
+// } from './token-auth';
 
-describe('utils token-auth', () => {
-  describe('injectAuthTokenOnRequest', () => {
-    it('  ', () => {
-      console.log(injectAuthTokenOnRequest());
-    });
-  });
-});
+// describe('utils token-auth', () => {
+//   describe('injectAuthTokenOnRequest', () => {
+//     it('  ', () => {
+//       // console.log(injectAuthTokenOnRequest());
+//     });
+//   });
+// });

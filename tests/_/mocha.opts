@@ -5,4 +5,4 @@
 --reporter spec
 src/**/tests/*.js
 src/**/*.test.js
-tests/**/*.js
+!tests/**/*.js

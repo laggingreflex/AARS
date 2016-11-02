@@ -1,15 +1,23 @@
-import _ from 'lodash';
 import restApiRequest from '../utils/rest-api-request';
 
-export default ({name, apiUrl, resource, requestOpts}) => {
+export default ({
+  apiUrl,
+  name,
+  resource,
+  requestOpts
+}) => {
   return {
-    request: ({authorization, ...data}) => {
-      return restApiRequest(_.merge({
+    request: ({
+      authorization,
+      ...data
+    }) => {
+      return restApiRequest({
         apiUrl,
         authorization,
         data,
-        resource: resource || name
-      }, requestOpts));
+        resource: resource || name,
+        ...requestOpts
+      });
     }
   };
 };

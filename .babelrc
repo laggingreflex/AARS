@@ -4,5 +4,9 @@
     "stage-0",
     "flow"
   ],
-  "sourceMaps": true
+  "sourceMaps": true,
+  "plugins": ["transform-es2015-modules-umd"],
+  "env": {
+    "test": { "plugins": [ "rewire" ] }
+  }
 }
