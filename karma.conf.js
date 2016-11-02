@@ -10,6 +10,20 @@ module.exports = function (config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha'],
+    client: {
+      mocha: {
+        // change Karma's debug.html to the mocha web reporter
+        reporter: 'html',
+
+        // require specific files after Mocha is initialized
+        require: [
+          'tests/_/first.js'
+        ]
+
+        // custom ui, defined in required file above
+        // ui: 'bdd-lazy-var/global'
+      }
+    },
 
     // list of files / patterns to load in the browser
     files: [
@@ -19,6 +33,7 @@ module.exports = function (config) {
 
     // list of files to exclude
     exclude: [
+      'tests/_/*'
     ],
 
     // preprocess matching files before serving them to the browser
