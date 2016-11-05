@@ -77,6 +77,12 @@ describe('sagaCreator', () => {
     saga = fixtures.sagaCreator();
   });
 
+  it('should throw ', () => {
+    sagaCreator.should.throw();
+    (() => sagaCreator({})).should.throw();
+    (() => sagaCreator({api:'some'})).should.throw();
+    (() => sagaCreator({api:'some', failureAction(){}})).should.throw();
+  });
   it('should be a generator', () => {
     saga().next.should.be.a('function');
   });

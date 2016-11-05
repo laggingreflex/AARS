@@ -3,6 +3,7 @@
 --require jsdom-global/register
 --require tests/_/first.js
 --reporter spec
-src/**/tests/*.js
+src/**/test/*.js
 src/**/*.test.js
-!tests/**/*.js
+tests/**/*.js
+!tests/_/**

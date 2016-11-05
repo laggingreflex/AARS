@@ -1,5 +1,6 @@
 import { spy } from 'sinon';
 import { Map } from 'immutable';
+
 import { actionCreator } from './actions';
 
 describe( 'actionCreator', () => {
@@ -8,10 +9,9 @@ describe( 'actionCreator', () => {
       label: 'label',
       name: 'test'
     } );
-    const dispatcher = action( );
+    const dispatcher = action();
     const dispatch = spy();
-
-    dispatcher( dispatch);
+    dispatcher( dispatch );
     dispatch.should.have.been.called;
   } );
   it( 'should wrapData and call hook', () => {

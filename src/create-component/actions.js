@@ -3,6 +3,7 @@ import {deepCamelCase} from '../utils/misc';
 
 export const actionCreator = ({
   name,
+
   label,
   dataLabel = 'data',
   hook,

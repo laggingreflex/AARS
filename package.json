@@ -7,6 +7,7 @@
     "lint": "eslint src tests",
     "jest": "jest --config tests/_/jest.json",
     "test": "cross-env NODE_ENV=test mocha --opts tests/_/mocha.opts",
+    "mochista": "cross-env NODE_ENV=test mochista --opts tests/_/mocha.opts",
     "karma": "karma start",
     "tdd": "npm test -- --watch",
     "cover": "nyc --config-file=tests/_/.nycrc npm test"
